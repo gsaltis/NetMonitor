@@ -1,0 +1,4 @@
+alias n=./netmon
+alias m=make
+alias g='gdb netmon'
+export PS1="\e[1;31mNetMon : \e[0m"
