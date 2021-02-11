@@ -28,7 +28,11 @@ NetworkMonitorServer.o: NetworkMonitorServer.c NetworkMonitorServer.h \
  NetworkMonitorServer/NetworkMonitorSetRoute.c \
  NetworkMonitorServer/NetworkMonitorGenericIOCtrlCall.c \
  NetworkMonitorServer/NetworkMonitorGetNetworkInterfaces.c \
- NetworkMonitorServer/NetworkMonitorCreateSocket.c
+ NetworkMonitorServer/NetworkMonitorCreateSocket.c \
+ NetworkMonitorServer/NetworkMonitorSetInterfaceName.c \
+ NetworkMonitorServer/NetworkMonitorListInterfaces.c \
+ NetworkMonitorServer/NetworkMonitorIsInterface.c \
+ NetworkMonitorServer/NetworkMonitorGetInterfaceAddress.c
 UserInterfaceServer.o: UserInterfaceServer.c UserInterfaceServer.h \
  UserInterfaceServer/UserInterfaceServerGetThreadID.c \
  UserInterfaceServer/UserInterfaceProcessCommandQuit.c \
@@ -49,7 +53,24 @@ WebConnection.o: WebConnection.c WebConnection.h WebSocketHTTPConfig.h \
  WebConnection/WebConnectionListCreate.c \
  WebConnection/WebConnectionClose.c WebConnection/WebConnectionDestroy.c \
  WebConnection/WebConnectionCreate.c
-WebSocketHTTPConfig.o: WebSocketHTTPConfig.c WebSocketHTTPConfig.h
+WebSocketHTTPConfig.o: WebSocketHTTPConfig.c WebSocketHTTPConfig.h \
+ WebSocketHTTPConfig/WebSocketHTTPInitialize.c \
+ WebSocketHTTPConfig/WebSocketHTTPGetWWWDirectory.c \
+ WebSocketHTTPConfig/WebSocketHTTPGetHTTPPortAddress.c \
+ WebSocketHTTPConfig/WebSocketHTTPGetWebSocketHTTPPortAddress.c \
+ WebSocketHTTPConfig/WebSocketHTTPSetWWWDirectory.c \
+ WebSocketHTTPConfig/WebSocketHTTPSetHTTPPortAddress.c \
+ WebSocketHTTPConfig/WebSocketHTTPSetWebSocketPortAddress.c
 WebSocketServer.o: WebSocketServer.c WebSocketServer.h WebConnection.h \
  UserInterfaceServer.h main.h WebSocketHTTPConfig.h \
- NetworkMonitorServer.h
+ NetworkMonitorServer.h WebSocketServer/WebSocketFrameSend.c \
+ WebSocketServer/WebSocketHandleInit.c \
+ WebSocketServer/WebSocketHandlePacket.c \
+ WebSocketServer/WebSocketHandleRequest.c \
+ WebSocketServer/WebSocketServerCreateInfoScript.c \
+ WebSocketServer/WebSocketServerEventHandler.c \
+ WebSocketServer/WebSocketServerGetThreadID.c \
+ WebSocketServer/WebSocketServerInitialize.c \
+ WebSocketServer/WebSocketServerSendResponse.c \
+ WebSocketServer/WebSocketServerStart.c \
+ WebSocketServer/WebSocketServerThread.c

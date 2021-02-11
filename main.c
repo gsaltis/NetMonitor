@@ -60,6 +60,7 @@ main
 (int argc, char** argv)
 {
   MainInitialize();
+  MainProcessCommandLine(argc, argv);
   HTTPServerStart();
 
   LogWrite("Hi Mom\n");

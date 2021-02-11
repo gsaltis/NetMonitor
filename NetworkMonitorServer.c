@@ -15,7 +15,7 @@
 #include <linux/if_packet.h>
 #include <net/ethernet.h>
 #include <net/if.h>
-#include <net/route.h>    
+#include <net/route.h>
 #include <netdb.h>
 #include <netinet/if_ether.h>
 #include <netinet/in.h>
@@ -54,6 +54,21 @@
  * Local Data
  *****************************************************************************/
 string
+networkLogFilenameDefault = "log.txt";
+
+string
+networkLogFilename;
+
+bool
+networkMonitorUseLogging = false;
+
+string
+networkMonitorInterfaceNameDefault = "eth0";
+
+string
+networkMonitorInterfaceName;
+
+string
 mainFilterAddress = NULL;
 
 bool
@@ -81,7 +96,7 @@ FILE*
 logfile;
 
 static int
-tcp=0,udp=0,icmp=0,others=0,igmp=0,total=0; 
+tcp=0,udp=0,icmp=0,others=0,igmp=0,total=0;
 
 pthread_t
 networkMonitorServerID;
@@ -118,7 +133,7 @@ NetworkMonitorPrintICMPPacket
 (unsigned char* , int);
 
 void
-NetworkMonitorPrintData 
+NetworkMonitorPrintData
 (unsigned char* , int);
 
 void
@@ -184,3 +199,12 @@ main
 #include "NetworkMonitorServer/NetworkMonitorGenericIOCtrlCall.c"
 #include "NetworkMonitorServer/NetworkMonitorGetNetworkInterfaces.c"
 #include "NetworkMonitorServer/NetworkMonitorCreateSocket.c"
+#include "NetworkMonitorServer/NetworkMonitorSetInterfaceName.c"
+#include "NetworkMonitorServer/NetworkMonitorListInterfaces.c"
+#include "NetworkMonitorServer/NetworkMonitorIsInterface.c"
+#include "NetworkMonitorServer/NetworkMonitorGetInterfaceAddress.c"
+#include "NetworkMonitorServer/NetworkMonitorPacketContainsAddress.c"
+#include "NetworkMonitorServer/NetworkMonitorSetLogging.c"
+#include "NetworkMonitorServer/NetworkMonitorGetLogging.c"
+#include "NetworkMonitorServer/NetworkMonitorSetLogName.c"
+#include "NetworkMonitorServer/NetworkMonitorGetLogName.c"

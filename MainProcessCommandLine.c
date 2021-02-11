@@ -13,6 +13,47 @@ MainProcessCommandLine
 
   for (i = 1; i < argc; i++) {
     command = argv[i];
+
+    if ( StringEqualsOneOf(command, "-i", "--interface", NULL) ) {
+      i++;
+      if ( i == argc ) {
+        fprintf(stderr, "\"%s\" requires an interface name\n", command);
+        MainDisplayHelp();
+        exit(EXIT_FAILURE);
+      }
+      if ( !NetworkMonitorIsInterface(argv[i]) ) {
+        fprintf(stderr, "\"%s\" does not appear to be an interface name\n", argv[i]);
+        fprintf(stderr, "Try -in or --interfaces for a list of available network interfaces\n");
+        MainDisplayHelp();
+        exit(EXIT_FAILURE);
+      }
+      NetworkMonitorSetInterfaceName(argv[i]);
+      continue;
+    }
+
+    //! Set the network monitor 
+    if ( StringEqualsOneOf(command, "-ln", "--logfilename", NULL) ) {
+      i++;
+      if ( i == argc ) {
+        fprintf(stderr, "\"%s\" must include a filename\n", command);
+        MainDisplayHelp();
+        continue;
+      }
+      NetworkMonitorSetLogName(argv[i]);
+      continue;
+    }
+    
+    //! List the interfaces
+    if ( StringEqualsOneOf(command, "-in", "--interfaces", NULL) ) {
+      NetworkMonitorListInterfaces();
+      exit(EXIT_SUCCESS);
+    }
+
+    if ( StringEqualsOneOf(command, "-L", "--log", NULL) ) {
+      NetworkMonitorSetLogging(true);
+      continue; 
+    }
+    
     if ( StringEqualsOneOf(command, "-h", "--help", NULL) ) {
       MainDisplayHelp();
       exit(EXIT_SUCCESS);

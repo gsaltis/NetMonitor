@@ -1,7 +1,7 @@
 /*****************************************************************************!
  * Function : NetworkMonitorGetNetworkInterfaces
  *****************************************************************************/
-void
+StringList*
 NetworkMonitorGetNetworkInterfaces
 ()
 {
@@ -11,9 +11,10 @@ NetworkMonitorGetNetworkInterfaces
   int                                   fd;
   struct ifreq                          ifr;
   struct sockaddr_in*                   sa;
-  char                                  b;
   string                                interface;
-  
+  StringList*                           interfaces;
+
+  interfaces = StringListCreate();
   getifaddrs(&addresses);
   fflush(stdout);
   //! We only want to do this when we have a value 192. address
@@ -33,17 +34,13 @@ NetworkMonitorGetNetworkInterfaces
     ioctl(fd, SIOCGIFADDR, &ifr);
     close(fd);
     sa = (struct sockaddr_in*)&ifr.ifr_addr;
-    b = (char)(sa->sin_addr.s_addr & 0xFF);
-    
-    //! Check that we have a at least a C Address
-    if ( b & 0xC0 ) {
-      address = StringCopy(inet_ntoa(sa->sin_addr));
-      printf("Address = %-8s %s\n", interface, address);
-      FreeMemory(address);
-    }
+
+    address = StringCopy(inet_ntoa(sa->sin_addr));
+    StringListAppend(interfaces, StringCopy(interface));
+    FreeMemory(address);
   }
   freeifaddrs(addresses);
-
+  return interfaces;
 }
 
 
