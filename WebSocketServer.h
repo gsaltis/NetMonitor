@@ -1,11 +1,11 @@
 /*****************************************************************************
- * FILE NAME    : main.h
+ * FILE NAME    : WebSocketServer.h
  * DATE         : January 7 2021
  * PROJECT      : NONE
  * COPYRIGHT    : Copyright (C) 2021 by Gregory R Saltis
  *****************************************************************************/
-#ifndef _main_h_
-#define _main_h_
+#ifndef _websocketserver_h_
+#define _websocketserver_h_
 
 /*****************************************************************************!
  * Global Headers
@@ -27,10 +27,24 @@
 /*****************************************************************************!
  * Exported Functions
  *****************************************************************************/
-extern string
-mainAppDescription;
+void
+WebSocketServerInitialize
+();
 
-extern string
-mainAppName;
+pthread_t
+WebSocketServerGetThreadID
+();
 
-#endif // _main_h_
+void
+WebSocketServerStart
+();
+
+void
+WebSocketServerCreateInfoScript
+();
+
+void
+WebSocketServerSetDirectory
+(string InWWWDirectory);
+
+#endif // _websocketserver_h_

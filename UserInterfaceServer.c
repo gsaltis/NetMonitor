@@ -1,5 +1,5 @@
 /*****************************************************************************
- * FILE NAME    : main.c
+ * FILE NAME    : UserInterfaceServer.c
  * DATE         : January 7 2021
  * PROJECT      : NONE
  * COPYRIGHT    : Copyright (C) 2021 by Gregory R Saltis
@@ -13,21 +13,17 @@
 #include <string.h>
 #include <stdbool.h>
 #include <stdint.h>
+#include <errno.h>
+#include <ctype.h>
 #include <pthread.h>
-#include <MemoryManager.h>
+#include <StringUtils.h>
+#include <linenoise.h>
 #include <ANSIColors.h>
 
 /*****************************************************************************!
  * Local Headers
  *****************************************************************************/
-#include "main.h"
-#include "mainconfig.h"
-#include "HTTPServer.h"
 #include "UserInterfaceServer.h"
-#include "WebSocketServer.h"
-#include "WebSocketHTTPConfig.h"
-#include "NetworkMonitorServer.h"
-#include "Log.h"
 
 /*****************************************************************************!
  * Local Macros
@@ -36,41 +32,40 @@
 /*****************************************************************************!
  * Local Data
  *****************************************************************************/
+static pthread_t
+UserInterfaceServerID;
+
+static string
+UserInterfaceCommandPrompt = "Enter Command : ";
 
 /*****************************************************************************!
  * Local Functions
  *****************************************************************************/
+static void*
+UserInterfaceServerThread
+(void* InParameter);
+
+static StringList*
+UserInterfaceParseCommandLine
+(string InCommandLine);
+
 static void
-MainInitialize
-();
+UserInterfaceProcessCommand
+(StringList* InCommand);
 
-void
-MainDisplayHelp
-();
+static void
+UserInterfaceProcessCommandQuit
+(StringList* InCommand);
 
-void
-MainProcessCommandLine
-(int argc, char** argv);
+static void
+UserInterfaceProcessCommandHelp
+(StringList* InCommand);
 
-/*****************************************************************************!
- * Function : main
- *****************************************************************************/
-int
-main
-(int argc, char** argv)
-{
-  MainInitialize();
-  HTTPServerStart();
-
-  LogWrite("Hi Mom\n");
-  pthread_join(HTTPServerGetThreadID(), NULL);
-  pthread_join(UserInterfaceServerGetThreadID(), NULL);
-  pthread_join(WebSocketServerGetThreadID(), NULL);
-  pthread_join(NetworkMonitorServerGetThreadID(), NULL);
-  return EXIT_SUCCESS;
-}
-
-#include "MainProcessCommandLine.c"
-#include "MainDisplayHelp.c"
-#include "MainInitialize.c"
-
+#include "UserInterfaceServer/UserInterfaceServerGetThreadID.c"
+#include "UserInterfaceServer/UserInterfaceProcessCommandQuit.c"
+#include "UserInterfaceServer/UserInterfaceProcessCommandHelp.c"
+#include "UserInterfaceServer/UserInterfaceProcessCommand.c"
+#include "UserInterfaceServer/UserInterfaceParseCommandLine.c"
+#include "UserInterfaceServer/UserInterfaceServerThread.c"
+#include "UserInterfaceServer/UserInterfaceServerStart.c"
+#include "UserInterfaceServer/UserInterfaceServerInitialize.c"

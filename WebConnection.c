@@ -1,8 +1,8 @@
 /*****************************************************************************
- * FILE NAME    : main.c
- * DATE         : January 7 2021
- * PROJECT      : NONE
- * COPYRIGHT    : Copyright (C) 2021 by Gregory R Saltis
+ * FILE NAME    : WebConnection.c
+ * DATE         : April 22 2020 
+ * PROJECT      : BDBF Simulator
+ * COPYRIGHT    : Copyright (C) 2020 by Vertiv Company
  *****************************************************************************/
 
 /*****************************************************************************!
@@ -10,24 +10,19 @@
  *****************************************************************************/
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <stdbool.h>
 #include <stdint.h>
+#include <string.h>
 #include <pthread.h>
 #include <MemoryManager.h>
-#include <ANSIColors.h>
+#include <StringUtils.h>
+#include <mongoose.h>
 
 /*****************************************************************************!
  * Local Headers
  *****************************************************************************/
-#include "main.h"
-#include "mainconfig.h"
-#include "HTTPServer.h"
-#include "UserInterfaceServer.h"
-#include "WebSocketServer.h"
+#include "WebConnection.h"
 #include "WebSocketHTTPConfig.h"
-#include "NetworkMonitorServer.h"
-#include "Log.h"
 
 /*****************************************************************************!
  * Local Macros
@@ -40,37 +35,15 @@
 /*****************************************************************************!
  * Local Functions
  *****************************************************************************/
-static void
-MainInitialize
-();
 
-void
-MainDisplayHelp
-();
-
-void
-MainProcessCommandLine
-(int argc, char** argv);
-
-/*****************************************************************************!
- * Function : main
- *****************************************************************************/
-int
-main
-(int argc, char** argv)
-{
-  MainInitialize();
-  HTTPServerStart();
-
-  LogWrite("Hi Mom\n");
-  pthread_join(HTTPServerGetThreadID(), NULL);
-  pthread_join(UserInterfaceServerGetThreadID(), NULL);
-  pthread_join(WebSocketServerGetThreadID(), NULL);
-  pthread_join(NetworkMonitorServerGetThreadID(), NULL);
-  return EXIT_SUCCESS;
-}
-
-#include "MainProcessCommandLine.c"
-#include "MainDisplayHelp.c"
-#include "MainInitialize.c"
-
+#include "WebConnection/WebConnectionTimeUpdate.c"
+#include "WebConnection/WebConnectionListGetByIndex.c" 
+#include "WebConnection/WebConnectionListDisplay.c"
+#include "WebConnection/WebConnectionListCount.c"
+#include "WebConnection/WebConnectionListFind.c"
+#include "WebConnection/WebConnectionListRemove.c"
+#include "WebConnection/WebConnectionListAppend.c"
+#include "WebConnection/WebConnectionListCreate.c"
+#include "WebConnection/WebConnectionClose.c"
+#include "WebConnection/WebConnectionDestroy.c"
+#include "WebConnection/WebConnectionCreate.c"

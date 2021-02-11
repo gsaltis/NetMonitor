@@ -1,6 +1,6 @@
 /*****************************************************************************
- * FILE NAME    : main.c
- * DATE         : January 7 2021
+ * FILE NAME    : Log.c
+ * DATE         : February 9 2021
  * PROJECT      : NONE
  * COPYRIGHT    : Copyright (C) 2021 by Gregory R Saltis
  *****************************************************************************/
@@ -13,20 +13,13 @@
 #include <string.h>
 #include <stdbool.h>
 #include <stdint.h>
-#include <pthread.h>
+#include <stdarg.h>
+#include <time.h>
 #include <MemoryManager.h>
-#include <ANSIColors.h>
 
 /*****************************************************************************!
  * Local Headers
  *****************************************************************************/
-#include "main.h"
-#include "mainconfig.h"
-#include "HTTPServer.h"
-#include "UserInterfaceServer.h"
-#include "WebSocketServer.h"
-#include "WebSocketHTTPConfig.h"
-#include "NetworkMonitorServer.h"
 #include "Log.h"
 
 /*****************************************************************************!
@@ -36,41 +29,20 @@
 /*****************************************************************************!
  * Local Data
  *****************************************************************************/
+bool
+logUsing;
+
+string
+logFilename;
+
+string
+logFilenameDefault = "logfile.txt";
 
 /*****************************************************************************!
  * Local Functions
  *****************************************************************************/
-static void
-MainInitialize
-();
 
-void
-MainDisplayHelp
-();
-
-void
-MainProcessCommandLine
-(int argc, char** argv);
-
-/*****************************************************************************!
- * Function : main
- *****************************************************************************/
-int
-main
-(int argc, char** argv)
-{
-  MainInitialize();
-  HTTPServerStart();
-
-  LogWrite("Hi Mom\n");
-  pthread_join(HTTPServerGetThreadID(), NULL);
-  pthread_join(UserInterfaceServerGetThreadID(), NULL);
-  pthread_join(WebSocketServerGetThreadID(), NULL);
-  pthread_join(NetworkMonitorServerGetThreadID(), NULL);
-  return EXIT_SUCCESS;
-}
-
-#include "MainProcessCommandLine.c"
-#include "MainDisplayHelp.c"
-#include "MainInitialize.c"
-
+#include "Log/LogInitialize.c"
+#include "Log/LogSetFilename.c"
+#include "Log/LogWrite.c"
+#include "Log/LogClear.c"

@@ -1,11 +1,11 @@
 /*****************************************************************************
- * FILE NAME    : main.h
+ * FILE NAME    : HTTPServer.h
  * DATE         : January 7 2021
  * PROJECT      : NONE
  * COPYRIGHT    : Copyright (C) 2021 by Gregory R Saltis
  *****************************************************************************/
-#ifndef _main_h_
-#define _main_h_
+#ifndef _httpserver_h_
+#define _httpserver_h_
 
 /*****************************************************************************!
  * Global Headers
@@ -27,10 +27,16 @@
 /*****************************************************************************!
  * Exported Functions
  *****************************************************************************/
-extern string
-mainAppDescription;
+pthread_t
+HTTPServerGetThreadID
+();
 
-extern string
-mainAppName;
+void
+HTTPServerStart
+();
 
-#endif // _main_h_
+void
+HTTPServerInitialize
+();
+
+#endif // _httpserver_h_

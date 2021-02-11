@@ -1,16 +1,17 @@
 /*****************************************************************************
- * FILE NAME    : main.h
- * DATE         : January 7 2021
+ * FILE NAME    : Log.h
+ * DATE         : February 9 2021
  * PROJECT      : NONE
  * COPYRIGHT    : Copyright (C) 2021 by Gregory R Saltis
  *****************************************************************************/
-#ifndef _main_h_
-#define _main_h_
+#ifndef _log_h_
+#define _log_h_
 
 /*****************************************************************************!
  * Global Headers
  *****************************************************************************/
 #include <StringUtils.h>
+#include <unistd.h>
 
 /*****************************************************************************!
  * Local Headers
@@ -23,14 +24,29 @@
 /*****************************************************************************!
  * Exported Data
  *****************************************************************************/
+extern bool
+logUsing;
+
+extern string
+logFilenameDefault;
 
 /*****************************************************************************!
  * Exported Functions
  *****************************************************************************/
-extern string
-mainAppDescription;
+void
+LogClear
+();
 
-extern string
-mainAppName;
+void
+LogWrite
+(string InFormat, ...);
 
-#endif // _main_h_
+void
+LogSetFilename
+(string InLogFilename);
+
+void
+LogInitialize
+();
+
+#endif // _log_h_

@@ -1,76 +1,62 @@
 /*****************************************************************************
- * FILE NAME    : main.c
- * DATE         : January 7 2021
- * PROJECT      : NONE
+ * FILE NAME    : WebSocketHTTPConfig.h
+ * DATE         : January 11 2021
  * COPYRIGHT    : Copyright (C) 2021 by Gregory R Saltis
  *****************************************************************************/
+#ifndef _websockethttpconfig_h_
+#define _websockethttpconfig_h_
 
 /*****************************************************************************!
  * Global Headers
  *****************************************************************************/
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <stdbool.h>
 #include <stdint.h>
-#include <pthread.h>
-#include <MemoryManager.h>
-#include <ANSIColors.h>
+#include <string.h>
+#include <StringUtils.h>
 
 /*****************************************************************************!
  * Local Headers
  *****************************************************************************/
-#include "main.h"
-#include "mainconfig.h"
-#include "HTTPServer.h"
-#include "UserInterfaceServer.h"
-#include "WebSocketServer.h"
-#include "WebSocketHTTPConfig.h"
-#include "NetworkMonitorServer.h"
-#include "Log.h"
 
 /*****************************************************************************!
- * Local Macros
+ * Exported Macros
  *****************************************************************************/
 
 /*****************************************************************************!
- * Local Data
+ * Exported Data
  *****************************************************************************/
 
 /*****************************************************************************!
- * Local Functions
+ * Exported Functions
  *****************************************************************************/
-static void
-MainInitialize
+void
+WebSocketHTTPInitialize
 ();
 
 void
-MainDisplayHelp
-();
+WebSocketHTTPSetHTTPPortAddress
+(string InHTTPPortAddress);
 
 void
-MainProcessCommandLine
-(int argc, char** argv);
+WebSocketHTTPSetWebSocketPortAddress
+(string InWebSocketPortAddress);
 
-/*****************************************************************************!
- * Function : main
- *****************************************************************************/
-int
-main
-(int argc, char** argv)
-{
-  MainInitialize();
-  HTTPServerStart();
+void
+WebSocketHTTPSetWWWDirectory
+(string InWWWDirectory);
 
-  LogWrite("Hi Mom\n");
-  pthread_join(HTTPServerGetThreadID(), NULL);
-  pthread_join(UserInterfaceServerGetThreadID(), NULL);
-  pthread_join(WebSocketServerGetThreadID(), NULL);
-  pthread_join(NetworkMonitorServerGetThreadID(), NULL);
-  return EXIT_SUCCESS;
-}
+string
+WebSocketHTTPGetWebSocketHTTPPortAddress
+();
 
-#include "MainProcessCommandLine.c"
-#include "MainDisplayHelp.c"
-#include "MainInitialize.c"
+string
+WebSocketHTTPGetHTTPPortAddress
+();
 
+string
+WebSocketHTTPGetWWWDirectory
+();
+
+#endif /* _websockethttpconfig_h_*/

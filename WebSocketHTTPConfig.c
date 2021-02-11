@@ -1,7 +1,7 @@
 /*****************************************************************************
- * FILE NAME    : main.c
- * DATE         : January 7 2021
- * PROJECT      : NONE
+ * FILE NAME    : WebSocketHTTPConfig.c
+ * DATE         : January 11 2021
+ * PROJECT      : 
  * COPYRIGHT    : Copyright (C) 2021 by Gregory R Saltis
  *****************************************************************************/
 
@@ -11,66 +11,47 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stdbool.h>
-#include <stdint.h>
-#include <pthread.h>
+#include <StringUtils.h>
 #include <MemoryManager.h>
-#include <ANSIColors.h>
 
 /*****************************************************************************!
  * Local Headers
  *****************************************************************************/
-#include "main.h"
-#include "mainconfig.h"
-#include "HTTPServer.h"
-#include "UserInterfaceServer.h"
-#include "WebSocketServer.h"
 #include "WebSocketHTTPConfig.h"
-#include "NetworkMonitorServer.h"
-#include "Log.h"
 
 /*****************************************************************************!
  * Local Macros
  *****************************************************************************/
 
 /*****************************************************************************!
- * Local Data
- *****************************************************************************/
-
-/*****************************************************************************!
  * Local Functions
  *****************************************************************************/
-static void
-MainInitialize
-();
-
-void
-MainDisplayHelp
-();
-
-void
-MainProcessCommandLine
-(int argc, char** argv);
 
 /*****************************************************************************!
- * Function : main
+ * Local Data
  *****************************************************************************/
-int
-main
-(int argc, char** argv)
-{
-  MainInitialize();
-  HTTPServerStart();
+static string
+WWWDirectoryDefault = "www";
 
-  LogWrite("Hi Mom\n");
-  pthread_join(HTTPServerGetThreadID(), NULL);
-  pthread_join(UserInterfaceServerGetThreadID(), NULL);
-  pthread_join(WebSocketServerGetThreadID(), NULL);
-  pthread_join(NetworkMonitorServerGetThreadID(), NULL);
-  return EXIT_SUCCESS;
-}
+static string
+WWWDirectory = NULL;
 
-#include "MainProcessCommandLine.c"
-#include "MainDisplayHelp.c"
-#include "MainInitialize.c"
+static string
+WebSocketPortAddressDefault = "8002";
 
+static string
+WebSocketPortAddress = NULL;
+
+static string
+HTTPPortAddress = NULL;
+
+static string
+HTTPPortAddressDefault = "8001";
+
+#include "WebSocketHTTPConfig/WebSocketHTTPInitialize.c"
+#include "WebSocketHTTPConfig/WebSocketHTTPGetWWWDirectory.c"
+#include "WebSocketHTTPConfig/WebSocketHTTPGetHTTPPortAddress.c"
+#include "WebSocketHTTPConfig/WebSocketHTTPGetWebSocketHTTPPortAddress.c"
+#include "WebSocketHTTPConfig/WebSocketHTTPSetWWWDirectory.c"
+#include "WebSocketHTTPConfig/WebSocketHTTPSetHTTPPortAddress.c"
+#include "WebSocketHTTPConfig/WebSocketHTTPSetWebSocketPortAddress.c"

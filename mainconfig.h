@@ -1,16 +1,19 @@
 /*****************************************************************************
- * FILE NAME    : main.h
- * DATE         : January 7 2021
- * PROJECT      : NONE
+ * FILE NAME    : mainconfig.h
+ * DATE         : January 11 2021
  * COPYRIGHT    : Copyright (C) 2021 by Gregory R Saltis
  *****************************************************************************/
-#ifndef _main_h_
-#define _main_h_
+#ifndef _mainconfig_h_
+#define _mainconfig_h_
 
 /*****************************************************************************!
  * Global Headers
  *****************************************************************************/
-#include <StringUtils.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <stdint.h>
+#include <string.h>
 
 /*****************************************************************************!
  * Local Headers
@@ -23,14 +26,14 @@
 /*****************************************************************************!
  * Exported Data
  *****************************************************************************/
+string
+mainAppDescription = "Application Framework";
+
+string
+mainAppName = "AppFramework";
 
 /*****************************************************************************!
  * Exported Functions
  *****************************************************************************/
-extern string
-mainAppDescription;
 
-extern string
-mainAppName;
-
-#endif // _main_h_
+#endif /* _mainconfig_h_*/

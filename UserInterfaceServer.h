@@ -1,76 +1,46 @@
 /*****************************************************************************
- * FILE NAME    : main.c
+ * FILE NAME    : UserInterfaceServer.h
  * DATE         : January 7 2021
  * PROJECT      : NONE
  * COPYRIGHT    : Copyright (C) 2021 by Gregory R Saltis
  *****************************************************************************/
+#ifndef _userinterfaceserver_h_
+#define _userinterfaceserver_h_
 
 /*****************************************************************************!
  * Global Headers
  *****************************************************************************/
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdbool.h>
-#include <stdint.h>
 #include <pthread.h>
-#include <MemoryManager.h>
-#include <ANSIColors.h>
 
 /*****************************************************************************!
  * Local Headers
  *****************************************************************************/
-#include "main.h"
-#include "mainconfig.h"
-#include "HTTPServer.h"
-#include "UserInterfaceServer.h"
-#include "WebSocketServer.h"
-#include "WebSocketHTTPConfig.h"
-#include "NetworkMonitorServer.h"
-#include "Log.h"
 
 /*****************************************************************************!
- * Local Macros
+ * Exported Macros
  *****************************************************************************/
 
 /*****************************************************************************!
- * Local Data
+ * Exported Data
  *****************************************************************************/
 
 /*****************************************************************************!
- * Local Functions
+ * Exported Functions
  *****************************************************************************/
-static void
-MainInitialize
+pthread_t
+UserInterfaceServerGetThreadID
 ();
 
 void
-MainDisplayHelp
+UserInterfaceServerInitialize
 ();
 
 void
-MainProcessCommandLine
-(int argc, char** argv);
+UserInterfaceServerStart
+();
 
-/*****************************************************************************!
- * Function : main
- *****************************************************************************/
-int
-main
-(int argc, char** argv)
-{
-  MainInitialize();
-  HTTPServerStart();
+pthread_t
+UserInterfaceServerGetID
+();
 
-  LogWrite("Hi Mom\n");
-  pthread_join(HTTPServerGetThreadID(), NULL);
-  pthread_join(UserInterfaceServerGetThreadID(), NULL);
-  pthread_join(WebSocketServerGetThreadID(), NULL);
-  pthread_join(NetworkMonitorServerGetThreadID(), NULL);
-  return EXIT_SUCCESS;
-}
-
-#include "MainProcessCommandLine.c"
-#include "MainDisplayHelp.c"
-#include "MainInitialize.c"
-
+#endif // _userinterfaceserver_h_
